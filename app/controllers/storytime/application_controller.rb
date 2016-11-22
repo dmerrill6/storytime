@@ -6,20 +6,13 @@ class Storytime::ApplicationController < Storytime.application_controller_superc
 
   include Storytime::Concerns::ControllerContentFor
   include Storytime::Concerns::CurrentSite
-  helper_method :current_storytime_site
 
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   helper :all
 
-  helper_method :dashboard_controller
-
   if Storytime.user_class_symbol != :user && !respond_to(:current_user)
-    helper_method :authenticate_user!
-    helper_method :current_user
-    helper_method :user_signed_in?
-
     def authenticate_user!
       send("authenticate_#{Storytime.user_class_underscore_all}!".to_sym)
     end

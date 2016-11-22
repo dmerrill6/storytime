@@ -34,17 +34,17 @@ module Storytime
         authorize @post
         @post.destroy
         flash[:notice] = I18n.t('flash.posts.destroy.success') unless request.xhr?
-        
+
         respond_with [:dashboard, @post] do |format|
           format.html{ redirect_to [:dashboard, @post.blog, :blog_page_post_index] }
         end
       end
-      
+
     private
       def current_post_type
         @current_post_type ||= Storytime::BlogPost
       end
-      helper_method :current_post_type
+  
 
       def load_posts
         @posts = policy_scope(Storytime::Post).page(params[:page_number]).per(10)

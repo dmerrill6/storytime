@@ -49,17 +49,16 @@ module Storytime
         authorize @post
         @post.destroy
         flash[:notice] = I18n.t('flash.blogs.destroy.success') unless request.xhr?
-        
+
         respond_with [:dashboard, @post] do |format|
           format.html{ redirect_to [:dashboard, Storytime::Page] }
         end
       end
-      
+
     private
       def current_post_type
         @current_post_type ||= Storytime::Blog
       end
-      helper_method :current_post_type
     end
   end
 end

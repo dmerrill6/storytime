@@ -9,7 +9,6 @@ module Storytime
       def current_post_type
         @current_post_type ||= Storytime::Page
       end
-      helper_method :current_post_type
 
       def load_posts
         @posts = policy_scope(Storytime::Post).page(params[:page_number]).per(10)

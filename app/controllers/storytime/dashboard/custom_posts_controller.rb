@@ -30,16 +30,15 @@ module Storytime
         render :new
       end
     end
-      
+
     private
       def current_post_type
         @current_post_type ||= params[:post_type].classify.constantize
       end
-      helper_method :current_post_type
 
       def load_posts
         @posts = policy_scope(Storytime::Post).page(params[:page_number]).per(10).where(type: current_post_type)
-        
+
         @posts = if params[:published].present? && params[:published] == 'true'
           @posts.published.order(published_at: :desc)
         else
